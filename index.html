@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angular Firebase App</title>
+    <script src="https://code.angularjs.org/1.7.8/angular.min.js"></script>
+    <!-- Agrega el bloque de configuración de Firebase aquí -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyARftXkqb03gx_wHeowD7nySUtoOCdpbP4",
+            authDomain: "appnomina-a0652.firebaseapp.com",
+            projectId: "appnomina-a0652",
+            storageBucket: "appnomina-a0652.appspot.com",
+            messagingSenderId: "99754339045",
+            appId: "1:99754339045:web:0882f3a9f78891435c020c"
+        };
+        const app = initializeApp(firebaseConfig);
+
+        // Inicializa los módulos necesarios
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+    </script>
+
+
+   
+</head>
+
+<body ng-controller="myController">
+
+ 
+    <!-- Contenido de la aplicación Angular -->
+
+    <div ng-show="!user">
+        <h2>Login</h2>
+        <form ng-submit="login()">
+            <label>Email:
+                <input type="email" ng-model="email" required>
+            </label>
+            <br>
+            <label>Password:
+                <input type="password" ng-model="password" required>
+            </label>
+            <br>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div ng-show="user">
+        <h2>Bienvenido, {{ user.email }}</h2>
+        <button ng-click="logout()">Logout</button>
+
+        <h3>Información de Nómina</h3>
+        <div ng-if="nominaInfo">
+            <p>Nombre: {{ nominaInfo.nombre }}</p>
+            <p>Sueldo: {{ nominaInfo.sueldo }}</p>
+            <button ng-click="downloadDesprendible()">Descargar Desprendible de Pago</button>
+        </div>
+    </div>
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>
